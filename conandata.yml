@@ -4,5 +4,5 @@ sources:
     sha256: "bc53d5f72ab628a1ae549db6888325d6dc34db3ca31c5e16e550c1bb4266d864"
 patches:
   "1.17.2":
-    - patch_file: "patches/disable-static-when-dynamic-build.patch"
+    - patch_file: "patches/disable-shared-when-static.patch"
       base_path: "source_subfolder"
