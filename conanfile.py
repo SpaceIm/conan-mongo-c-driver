@@ -14,7 +14,7 @@ class MongoCDriverConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = ["CMakeLists.txt", "patches/**"]
     generators = "cmake", "cmake_find_package", "pkg_config"
-    short_paths = True
+    # short_paths = True
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
@@ -114,6 +114,9 @@ class MongoCDriverConan(ConanFile):
                               "OPENSSL_LIBRARIES", "OpenSSL_LIBRARIES")
         tools.replace_in_file(os.path.join(self._source_subfolder, "src", "libmongoc", "CMakeLists.txt"),
                               "OPENSSL_INCLUDE_DIR", "OpenSSL_INCLUDE_DIR")
+        # Fix LibreSSL
+        tools.replace_in_file(os.path.join(self._source_subfolder, "src", "libmongoc", "CMakeLists.txt"),
+                              "set (SSL_LIBRARIES -ltls -lcrypto)", "")
 
     @property
     def ssl_cmake_value(self):
