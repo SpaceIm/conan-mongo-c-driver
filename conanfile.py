@@ -64,7 +64,6 @@ class MongoCDriverConan(ConanFile):
             version=self.version
         )
         os.rename(extracted_dir, self._source_subfolder)
-        self._patch_sources()
 
     def _patch_sources(self):
         for patch in self.conan_data["patches"][self.version]:
@@ -135,6 +134,7 @@ class MongoCDriverConan(ConanFile):
         return self._cmake
 
     def build(self):
+        self._patch_sources()
         cmake = self._configure_cmake()
         cmake.build()
 
